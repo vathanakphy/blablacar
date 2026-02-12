@@ -8,6 +8,7 @@ class BlaButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData? icon;
   final BlaButtonType type;
+  final BorderRadiusGeometry? radiusGeometry;
 
   const BlaButton({
     super.key,
@@ -15,6 +16,7 @@ class BlaButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.type = BlaButtonType.primary,
+    this.radiusGeometry,
   });
 
   @override
@@ -26,13 +28,14 @@ class BlaButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
+          alignment: Alignment.center,
           padding: EdgeInsets.symmetric(
             horizontal: BlaSpacings.m,
             vertical: BlaSpacings.s,
           ),
           decoration: BoxDecoration(
             color: isPrimary ? BlaColors.primary : BlaColors.white,
-            borderRadius: BorderRadius.circular(BlaSpacings.radius),
+            borderRadius: radiusGeometry ?? BorderRadius.circular(BlaSpacings.radiusLarge),
             border: isPrimary
                 ? null
                 : Border.all(color: BlaColors.neutralDark, width: 1.0),
