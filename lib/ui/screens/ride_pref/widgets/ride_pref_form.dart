@@ -1,8 +1,12 @@
+import 'package:blabla/ui/theme/theme.dart';
+import 'package:blabla/ui/widgets/actions/bla_button.dart';
+import 'package:blabla/ui/widgets/display/bla_divider.dart';
+import 'package:blabla/utils/date_time_util.dart';
 import 'package:flutter/material.dart';
- 
+
 import '../../../../model/ride/locations.dart';
 import '../../../../model/ride_pref/ride_pref.dart';
- 
+
 ///
 /// A Ride Preference From is a view to select:
 ///   - A depcarture location
@@ -28,38 +32,115 @@ class _RidePrefFormState extends State<RidePrefForm> {
   Location? arrival;
   late int requestedSeats;
 
-
-
   // ----------------------------------
   // Initialize the Form attributes
   // ----------------------------------
 
   @override
   void initState() {
+    departureDate = DateTime.now();
+    requestedSeats = 1;
     super.initState();
-    // TODO 
+    // TODO
   }
 
   // ----------------------------------
   // Handle events
   // ----------------------------------
- 
+  void _onSwitchLocation() {
+    setState(() {
+      Location? temp = departure;
+      departure = arrival;
+      arrival = temp;
+    });
+  }
 
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
-  
-
+  bool get isLocationsSelected => departure != null && arrival != null;
   // ----------------------------------
   // Build the widgets
   // ----------------------------------
   @override
   Widget build(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [ 
- 
-        ]);
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SelectionFormTile(
+          title: (departure == null) ? "Leaving from " : departure!.name,
+          leadingIcon: Icons.radio_button_off_outlined,
+          trailingIcon: (isLocationsSelected) ? Icons.swap_vert : null,
+          onAction: () {
+            print("Hello Main");
+          },
+          onTraingAction: () {
+            print("Hello Swap");
+          },
+        ),
+        BlaDivider(),
+        SelectionFormTile(
+          title: (arrival == null) ? "Going to" : arrival!.name,
+          leadingIcon: Icons.radio_button_off_outlined,
+          onAction: () {},
+        ),
+        BlaDivider(),
+        SelectionFormTile(
+          title: DateTimeUtils.formatDateTime(departureDate),
+          leadingIcon: Icons.calendar_month_outlined,
+          onAction: () {},
+        ),
+        BlaDivider(),
+        SelectionFormTile(
+          title: requestedSeats.toString(),
+          leadingIcon: Icons.person_2_outlined,
+          onAction: () {},
+        ),
+        BlaButton(
+          label: "Search",
+          radiusGeometry: BorderRadius.only(
+            bottomLeft: Radius.circular(BlaSpacings.radius),
+            bottomRight: Radius.circular(BlaSpacings.radius),
+          ),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class SelectionFormTile extends StatelessWidget {
+  final String title;
+  final IconData leadingIcon;
+  final IconData? trailingIcon;
+  final VoidCallback onAction;
+  final VoidCallback? onTraingAction;
+
+  const SelectionFormTile({
+    super.key,
+    required this.title,
+    required this.leadingIcon,
+    this.trailingIcon,
+    required this.onAction,
+    this.onTraingAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onAction,
+      leading: Icon(leadingIcon, color: BlaColors.neutral),
+      title: Text(
+        title,
+        style: BlaTextStyles.button.copyWith(color: BlaColors.neutral),
+      ),
+      trailing: (trailingIcon != null && onTraingAction != null)
+          ? IconButton(
+              onPressed: onTraingAction,
+              icon: Icon(trailingIcon, color: BlaColors.primary),
+            )
+          : SizedBox.shrink(),
+    );
   }
 }
