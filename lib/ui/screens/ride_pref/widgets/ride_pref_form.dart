@@ -1,6 +1,7 @@
 import 'package:blabla/ui/theme/theme.dart';
 import 'package:blabla/ui/widgets/actions/bla_button.dart';
 import 'package:blabla/ui/widgets/display/bla_divider.dart';
+import 'package:blabla/ui/widgets/display/location_picker_modal.dart';
 import 'package:blabla/utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +60,39 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // Compute the widgets rendering
   // ----------------------------------
   bool get isLocationsSelected => departure != null && arrival != null;
+
+  Future<Location?> _showLocationPicker() async {
+    final Location? selected = await showModalBottomSheet<Location>(
+      context: context,
+      isScrollControlled: true,
+      isDismissible: false,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      builder: (BuildContext context) {
+        return const LocationPickerModal();
+      },
+    );
+    return selected;
+  }
+
+  Future<void> _onSelectedDeparture() async {
+    Location? selectedLocation = await _showLocationPicker();
+    if (selectedLocation != null) {
+      setState(() {
+        departure = selectedLocation;
+      });
+    }
+  }
+
+  Future<void> _onSelectedArrival() async {
+    Location? selectedLocation = await _showLocationPicker();
+    if (selectedLocation != null) {
+      setState(() {
+        arrival = selectedLocation;
+      });
+    }
+  }
+
   // ----------------------------------
   // Build the widgets
   // ----------------------------------
@@ -72,18 +106,14 @@ class _RidePrefFormState extends State<RidePrefForm> {
           title: (departure == null) ? "Leaving from " : departure!.name,
           leadingIcon: Icons.radio_button_off_outlined,
           trailingIcon: (isLocationsSelected) ? Icons.swap_vert : null,
-          onAction: () {
-            print("Hello Main");
-          },
-          onTraingAction: () {
-            print("Hello Swap");
-          },
+          onAction: _onSelectedDeparture,
+          onTraingAction: _onSwitchLocation,
         ),
         BlaDivider(),
         SelectionFormTile(
           title: (arrival == null) ? "Going to" : arrival!.name,
           leadingIcon: Icons.radio_button_off_outlined,
-          onAction: () {},
+          onAction: _onSelectedArrival,
         ),
         BlaDivider(),
         SelectionFormTile(
