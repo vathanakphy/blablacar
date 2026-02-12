@@ -10,11 +10,12 @@ class RidePref {
   final Location arrival;
   final int requestedSeats;
 
-  const RidePref(
-      {required this.departure,
-      required this.departureDate,
-      required this.arrival,
-      required this.requestedSeats});
+  const RidePref({
+    required this.departure,
+    required this.departureDate,
+    required this.arrival,
+    required this.requestedSeats,
+  });
 
   @override
   String toString() {
@@ -22,5 +23,19 @@ class RidePref {
         'departureDate: ${departureDate.toIso8601String()}, '
         'arrival: ${arrival.name}, '
         'requestedSeats: $requestedSeats)';
+  }
+
+  RidePref copyWith({
+    Location? departure,
+    DateTime? departureDate,
+    Location? arrival,
+    int? requestedSeats,
+  }) {
+    return RidePref(
+      departure: departure ?? this.departure,
+      departureDate: departureDate ?? this.departureDate,
+      arrival: arrival ?? this.arrival,
+      requestedSeats: requestedSeats ?? this.requestedSeats,
+    );
   }
 }

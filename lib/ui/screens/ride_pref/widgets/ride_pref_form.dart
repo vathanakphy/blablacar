@@ -1,7 +1,9 @@
+import 'package:blabla/ui/screens/ride_pref/seat_selection.dart';
 import 'package:blabla/ui/theme/theme.dart';
 import 'package:blabla/ui/widgets/actions/bla_button.dart';
 import 'package:blabla/ui/widgets/display/bla_divider.dart';
 import 'package:blabla/ui/widgets/display/location_picker_modal.dart';
+import 'package:blabla/utils/animations_util.dart';
 import 'package:blabla/utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
@@ -93,6 +95,20 @@ class _RidePrefFormState extends State<RidePrefForm> {
     }
   }
 
+  Future<void> _onSelectSeat() async {
+    int selectedSeat = await Navigator.push(
+      context,
+      AnimationUtils.createRightToLeftRoute(
+        SeatSelection(iniSeat: requestedSeats),
+      ),
+    );
+    if (selectedSeat != requestedSeats) {
+      setState(() {
+        requestedSeats = selectedSeat;
+      });
+    }
+  }
+
   // ----------------------------------
   // Build the widgets
   // ----------------------------------
@@ -125,7 +141,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
         SelectionFormTile(
           title: requestedSeats.toString(),
           leadingIcon: Icons.person_2_outlined,
-          onAction: () {},
+          onAction: _onSelectSeat,
         ),
         BlaButton(
           label: "Search",
