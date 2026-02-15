@@ -1,4 +1,3 @@
-import 'package:blabla/services/ride_prefs_service.dart';
 import 'package:blabla/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +22,6 @@ class _SeatSelectionState extends State<SeatSelection> {
     setState(() {
       currentSeat++;
     });
-    RidePrefService.currentRidePref = RidePrefService.currentRidePref?.copyWith(
-      requestedSeats: currentSeat,
-    );
   }
 
   void _onRemove() {
@@ -33,9 +29,6 @@ class _SeatSelectionState extends State<SeatSelection> {
     setState(() {
       currentSeat--;
     });
-    RidePrefService.currentRidePref = RidePrefService.currentRidePref?.copyWith(
-      requestedSeats: currentSeat,
-    );
   }
 
   @override
