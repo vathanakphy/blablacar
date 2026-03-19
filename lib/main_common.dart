@@ -5,7 +5,7 @@ import 'ui/screens/home/home_screen.dart';
 import 'ui/theme/theme.dart';
 
 void mainCommon(List<InheritedProvider> providers) {
-  runApp(MultiProvider(providers: providers, child: const BlaBlaApp()));
+  runApp(MultiProvider(providers: providers, child: BlaBlaApp()));
 }
 
 class BlaBlaApp extends StatelessWidget {
