@@ -1,12 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'ui/screens/home/home_screen.dart';
 import 'ui/theme/theme.dart';
 
-void main() {
-   runApp(const BlaBlaApp()); 
+void mainCommon(List<InheritedProvider> providers) {
+  runApp(MultiProvider(providers: providers, child: const BlaBlaApp()));
 }
-
 
 class BlaBlaApp extends StatelessWidget {
   const BlaBlaApp({super.key});
@@ -16,7 +16,7 @@ class BlaBlaApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: blaTheme,
-      home: Scaffold(body: HomeScreen()),
+      home: const Scaffold(body: HomeScreen()),
     );
   }
 }
