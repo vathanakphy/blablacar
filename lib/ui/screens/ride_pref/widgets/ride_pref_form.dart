@@ -1,4 +1,5 @@
 import 'package:blabla/services/ride_prefs_service.dart';
+import 'package:blabla/ui/screens/ride/ride_screen.dart';
 import 'package:blabla/ui/screens/ride_pref/seat_selection.dart';
 import 'package:blabla/ui/theme/theme.dart';
 import 'package:blabla/ui/widgets/actions/bla_button.dart';
@@ -111,22 +112,36 @@ class _RidePrefFormState extends State<RidePrefForm> {
   }
 
   Future<void> _onSearchRide() async {
-    if (departure == null) {
-      _onSelectedDeparture();
-    } else if (arrival == null) {
-      _onSelectedArrival();
-    } else {
-      if (departure != arrival && departure != null && arrival != null) {
-        RidePrefService.addRidePref(
-          RidePref(
-            departure: departure!,
-            departureDate: departureDate,
-            arrival: arrival!,
-            requestedSeats: requestedSeats,
-          ),
-        );
-      }
-    }
+    await Navigator.push(
+      context,
+      AnimationUtils.createRightToLeftRoute(
+        RideScreen(ridePref: RidePrefService.currentRidePref!),
+      ),
+    );
+    // if (departure == null) {
+    //   _onSelectedDeparture();
+    // } else if (arrival == null) {
+    //   _onSelectedArrival();
+    // } else {
+    //   if (departure != arrival && departure != null && arrival != null) {
+    //     RidePrefService.addRidePref(
+    //       RidePref(
+    //         departure: departure!,
+    //         departureDate: departureDate,
+    //         arrival: arrival!,
+    //         requestedSeats: requestedSeats,
+    //       ),
+    //     );
+    //     if (RidePrefService.hasCurrentRidePref) {
+    //       await Navigator.push(
+    //         context,
+    //         AnimationUtils.createRightToLeftRoute(
+    //           RideScreen(ridePref: RidePrefService.currentRidePref!),
+    //         ),
+    //       );
+    //     }
+    //   }
+    // }
   }
 
   // ----------------------------------

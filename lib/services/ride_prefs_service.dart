@@ -13,7 +13,7 @@ class RidePrefService {
   static List<RidePref> ridePrefsHistory =
       fakeRidePrefs; // TODO for now fake data
 
-  static RidePref? currentRidePref;
+  static RidePref? currentRidePref = ridePrefsHistory.first;
 
   static void addRidePref(RidePref ridePref) {
     if (_hasRidePrefExists) ridePrefsHistory.add(ridePref);

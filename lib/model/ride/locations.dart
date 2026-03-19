@@ -31,7 +31,7 @@ class Location {
 
   @override
   String toString() {
-    return name;
+    return '$name, ${country.name}';
   }
 }
 
