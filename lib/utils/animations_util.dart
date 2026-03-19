@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AnimationUtils {
-  static const int transitionSpeed = 300; //ms
-
-  static Route<T> createRightToLeftRoute<T>(Widget screen) {
-    const begin = Offset(1.0, 0.0); 
-    const end = Offset.zero; 
-    return _createAnimatedRoute(screen, begin, end);
-  }
+  static const int transitionSpeed = 500; //ms
 
   ////
   /// Slide given screen from bottom to top
@@ -23,6 +17,15 @@ class AnimationUtils {
   ///
   static Route<T> createTopToBottomRoute<T>(Widget screen) {
     const begin = Offset(0.0, -1.0); // Start from top
+    const end = Offset(0.0, 0.0); // Move to normal position
+    return _createAnimatedRoute(screen, begin, end);
+  }
+
+  ////
+  /// Slide given screen from right to left
+  ///
+  static Route<T> createRightToLeftRoute<T>(Widget screen) {
+    const begin = Offset(1.0, 0.0); // Start from right
     const end = Offset(0.0, 0.0); // Move to normal position
     return _createAnimatedRoute(screen, begin, end);
   }
