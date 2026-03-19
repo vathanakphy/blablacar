@@ -1,10 +1,10 @@
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 import 'package:blabla/ui/theme/theme.dart';
-import 'package:blabla/utils/date_time_util.dart';
+import 'package:blabla/utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
 
 class RideScreen extends StatefulWidget {
-  final RidePref ridePref;
+  final RidePreference ridePref;
   const RideScreen({super.key, required this.ridePref});
 
   @override

@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import '../../../../model/ride_pref/ride_pref.dart';
-import '../../../theme/theme.dart';
-import '../../../../utils/date_time_util.dart';
 
-///
-/// This tile represents an item in the list of past entered ride inputs
-///
+import 'package:blabla/model/ride_pref/ride_pref.dart';
+import 'package:blabla/ui/theme/theme.dart';
+import 'package:blabla/utils/date_time_utils.dart';
+import 'package:flutter/material.dart';
+
 class RidePrefHistoryTile extends StatelessWidget {
   const RidePrefHistoryTile({
     super.key,
@@ -13,7 +11,7 @@ class RidePrefHistoryTile extends StatelessWidget {
     required this.onTap,
   });
 
-  final RidePref ridePref;
+  final RidePreference ridePref;
   final VoidCallback onTap;
 
   String get title => "${ridePref.departure.name} → ${ridePref.arrival.name}";
